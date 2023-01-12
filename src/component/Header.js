@@ -4,12 +4,12 @@ export default function Header() {
             <a href="/">토익 영단어(고급)</a>
         </h1>
         <div className="menu">
-            <a href="#x" className="link">
+            <button id="add_word">
                 단어 추가
-            </a>
-            <a href="#x" className="link">
+            </button>
+            <button id="add_day">
                 Day 추가
-            </a>
+            </button>
         </div>
     </div>
     );
