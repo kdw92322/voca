@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Parser from 'html-react-parser';
+import Axios from 'axios';
 
 function App() {
   const [movieContent, setMovieCotent] = useState({
@@ -11,6 +12,22 @@ function App() {
   })
 
   const [viewContent, setViewContent] = useState([]);
+
+  useEffect(()=>{
+    Axios.get('http://localhost:8000/api/get').then((response)=>{
+      //console.log(response);
+      setViewContent(response.data);
+    })
+  },[viewContent])
+
+  const submitReview = ()=>{
+    Axios.post('http://localhost:8000/api/insert', {
+      title: movieContent.title,
+      content: movieContent.content
+    }).then(()=>{
+      alert('등록완료!');
+    })
+  };
 
   const getValue = e => {
     const { name, value } = e.target;
@@ -61,10 +78,8 @@ function App() {
         />
       </div>
       <button className="submit-button"
-      onClick={() => {
-         setViewContent(viewContent.concat({...movieContent})); 
-      }
-      }>입력</button>
+        onClick={submitReview}
+        >입력</button>
     </div>
   );
 }
