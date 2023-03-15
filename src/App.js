@@ -62,18 +62,18 @@ function App() {
           }}
           onChange={(event, editor) => {
             const data = editor.getData();
-            console.log({ event, editor, data });
+            //console.log({ event, editor, data });
             setMovieCotent({
               ...movieContent,
               content:data
             })
-            console.log(movieContent);
+            //console.log(movieContent);
           }}
           onBlur={(event, editor) => {
-            console.log('Blur.', editor);
+            //console.log('Blur.', editor);
           }}
           onFocus={(event, editor) => {
-            console.log('Focus.', editor);
+            //console.log('Focus.', editor);
           }}
         />
       </div>
