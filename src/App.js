@@ -5,6 +5,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Parser from 'html-react-parser';
 import Axios from 'axios';
 
+
 function App() {
   const [movieContent, setMovieCotent] = useState({
     title:'',
@@ -17,13 +18,17 @@ function App() {
     Axios.get('http://localhost:8000/api/get').then((response)=>{
       //console.log(response);
       setViewContent(response.data);
-    })
-  },[viewContent])
+    });
+  },[])
 
   const submitReview = ()=>{
+    var title = movieContent.title; 
+    var content = movieContent.content;  
+    content  = content.replace(/<[^>]*>?/g, ''); //html 태그 제거
+
     Axios.post('http://localhost:8000/api/insert', {
-      title: movieContent.title,
-      content: movieContent.content
+      title: title,
+      content: content
     }).then(()=>{
       alert('등록완료!');
     })
@@ -35,7 +40,6 @@ function App() {
       ...movieContent,
       [name]: value
     })
-    console.log(name, value);
   }
 
   return (
